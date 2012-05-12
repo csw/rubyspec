@@ -290,7 +290,7 @@ describe "Module#autoload" do
     end
   end
 
-  it "should NOT raise a NameError when calling #autoload, requiring the module directly, and calling #autoload again" do
+  it "entries should NOT raise a NameError when calling #autoload, requiring the module directly, and calling #autoload again" do
     fx_p = fixture(__FILE__, "autoload_p.rb")
     ModuleSpecs.autoload(:P, fx_p)
     require fx_p
