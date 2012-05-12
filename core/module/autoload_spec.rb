@@ -290,6 +290,14 @@ describe "Module#autoload" do
     end
   end
 
+  it "should NOT raise a NameError when calling #autoload, requiring the module directly, and calling #autoload again" do
+    fx_p = fixture(__FILE__, "autoload_p.rb")
+    ModuleSpecs.autoload(:P, fx_p)
+    require fx_p
+    ModuleSpecs.autoload(:P, fx_p)
+    lambda { ModuleSpecs::P::P1 }.should_not raise_error(NameError)
+  end
+
   ruby_version_is "1.9" do
     it "calls #to_path on non-string filenames" do
       p = mock('path')
