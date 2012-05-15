@@ -55,4 +55,15 @@ it "returns a read-only stdout" do
       @in, @out, @err = Open3.popen3(["/bin/cat", "cat"])
     }.should_not raise_error(NoMethodError)
   end
+
+  it "accepts an array arg giving path and argv[0] for execve, with args" do
+    lambda {
+      @in, @out, @err = Open3.popen3(["/bin/echo", "echo"], "foo")
+    }.should_not raise_error(NoMethodError)
+  end
+
+  it "functions with an array arg giving path and argv[0] for execve, w/args" do
+    @in, @out, @err = Open3.popen3(["/bin/echo", "echo"], "foo")
+    @out.read.should == "foo\n"
+  end
 end
